@@ -136,7 +136,7 @@ h1 { font: 500 clamp(34px, 6vw, 46px)/1.05 var(--f-text); margin: 8px 0 26px; te
     <p class="lead">wird folgende unwiderrufliche Vereinbarung über die Nutzung von Fotografien getroffen:</p>
 
     <div class="clause"><div class="no">#1</div><div>
-      <p>Die Parteien vereinbaren, dass sämtliche Rechte, insbesondere die Rechte am eigenen Bild des Models, für jegliche Nutzung (insbesondere das Recht, die Bilder zu vervielfältigen, zu verbreiten, auszustellen und öffentlich und/oder nichtöffentlich wiederzugeben) an den am <span class="blank" id="shootDate">&nbsp;</span> durch den Fotograf von dem Model angefertigten Fotos und Videos unwiderruflich, sowie zeitlich und örtlich unbeschränkt – auch zum Zweck der Eigenwerbung – dem Fotografen zustehen und der Fotograf diese Rechte auch auf Dritte übertragen kann. Für die Nutzung wird insoweit keine inhaltliche, zeitliche oder räumliche Beschränkung vereinbart. Der Nutzungsumfang umfasst daher alle bekannten und unbekannten Verwendungs- und Nutzungsarten, insbesondere:</p>
+      <p>Die Parteien vereinbaren, dass sämtliche Rechte, insbesondere die Rechte am eigenen Bild des Models, für jegliche Nutzung (insbesondere das Recht, die Bilder zu vervielfältigen, zu verbreiten, auszustellen und öffentlich und/oder nichtöffentlich wiederzugeben) an den am <span class="blank filled" id="shootDate">4. + 5. September 2026</span> durch den Fotograf von dem Model angefertigten Fotos und Videos unwiderruflich, sowie zeitlich und örtlich unbeschränkt – auch zum Zweck der Eigenwerbung – dem Fotografen zustehen und der Fotograf diese Rechte auch auf Dritte übertragen kann. Für die Nutzung wird insoweit keine inhaltliche, zeitliche oder räumliche Beschränkung vereinbart. Der Nutzungsumfang umfasst daher alle bekannten und unbekannten Verwendungs- und Nutzungsarten, insbesondere:</p>
       <ul>
         <li>die Nutzung in Printmedien (Tageszeitungen, Zeitschriften), im Fernsehen über alle Verbreitungswege (z.&nbsp;B. über Antenne, Kabel, Satellit, IP TV, Handy TV, sowie andere Mobilplattformen), im Internet (Internetseiten, Bilddatenbanken, Content Managementsysteme, in Blogs und/oder Foren, Zeitschriften im PDF und anderen Formaten etc.), im Intranet, in digitalen Newslettern, auf CD, DVD, Blu-ray Disks und sonstigen Speichermedien,</li>
         <li>die Nutzung zum Zwecke der Berichterstattung oder Unterhaltung, der Werbung für Produkte, für Dienstleistungen oder Ideen, politische oder sonstige Meinungen und Ansichten sowie die pädagogische Nutzung. Nicht gestattet ist die Veröffentlichung des Bildmaterials in pornographischen Medien.</li>
@@ -195,14 +195,10 @@ h1 { font: 500 clamp(34px, 6vw, 46px)/1.05 var(--f-text); margin: 8px 0 26px; te
 <div class="scrim" id="scrim" hidden>
   <form class="modal" id="signForm" role="dialog" aria-modal="true" aria-labelledby="mTitle" novalidate>
     <h2 id="mTitle">Unterschreiben</h2>
-    <p class="sub">Trag deinen vollen Namen ein. Er wird als Unterschrift gesetzt, mit dem heutigen Datum und der Uhrzeit.</p>
+    <p class="sub">Trag deinen vollen Namen ein. Er wird als Unterschrift gesetzt, mit dem heutigen Datum und der Uhrzeit. Aufnahmen vom 4. + 5. September 2026.</p>
     <div class="field">
       <label for="fName">Vor- und Nachname</label>
       <input id="fName" name="name" autocomplete="name" required maxlength="80" placeholder="z. B. Lena Gruber">
-    </div>
-    <div class="field">
-      <label for="fShoot">Datum der Aufnahmen</label>
-      <input id="fShoot" name="shoot" type="date" required>
     </div>
     <div class="preview" aria-hidden="true"><span id="pvSig"></span></div>
     <label class="check"><input type="checkbox" id="fAgree"><span>Ich habe die Vereinbarung gelesen, bin volljährig und unterschreibe sie.</span></label>
@@ -219,6 +215,7 @@ h1 { font: 500 clamp(34px, 6vw, 46px)/1.05 var(--f-text); margin: 8px 0 26px; te
   const $ = (id) => document.getElementById(id);
   const KEY = "achager-model-release-2026-11";
   const DOC_VERSION = "Model-Release_DE_Nov2026";
+  const SHOOT = "4. + 5. September 2026";
   let readToEnd = false, signed = null;
 
   // reading progress + unlock at the end
@@ -265,9 +262,8 @@ h1 { font: 500 clamp(34px, 6vw, 46px)/1.05 var(--f-text); margin: 8px 0 26px; te
   $("signForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = $("fName").value.trim().replace(/\s+/g, " ");
-    const shoot = $("fShoot").value;
+    const shoot = SHOOT;
     if (name.length < 3 || !name.includes(" ")) { $("err").textContent = "Bitte Vor- und Nachnamen eintragen."; $("fName").focus(); return; }
-    if (!shoot) { $("err").textContent = "Bitte das Datum der Aufnahmen auswählen."; $("fShoot").focus(); return; }
     if (!$("fAgree").checked) { $("err").textContent = "Bitte bestätige, dass du gelesen hast und volljährig bist."; return; }
     const now = new Date();
     const ref = await refCode([DOC_VERSION, name, shoot, now.toISOString()].join("|"));
@@ -284,7 +280,7 @@ h1 { font: 500 clamp(34px, 6vw, 46px)/1.05 var(--f-text); margin: 8px 0 26px; te
       "",
       "Fotograf: Alexander Christian Hager, Mühlweg 68, AT-3100 St. Pölten",
       "Model: " + s.name,
-      "Aufnahmen vom: " + isoToDe(s.shoot),
+      "Aufnahmen vom: " + SHOOT,
       "Unterschrieben am: " + fmtDate(at) + ", " + fmtTime(at) + " Uhr",
       "Dokument: " + DOC_VERSION + " (§1–§9)",
       "Referenz: " + s.ref,
@@ -297,7 +293,6 @@ h1 { font: 500 clamp(34px, 6vw, 46px)/1.05 var(--f-text); margin: 8px 0 26px; te
     if (!signed) return;
     const at = new Date(signed.at);
     $("modelName").textContent = signed.name; $("modelName").classList.remove("empty-name");
-    $("shootDate").textContent = isoToDe(signed.shoot); $("shootDate").classList.add("filled");
     const line = $("modelSigLine"); line.textContent = "";
     const sp = document.createElement("span"); sp.className = "script"; sp.textContent = signed.name; line.appendChild(sp);
     $("stamp").hidden = false;
