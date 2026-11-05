@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}body{margin:0;font-size:14px}img{max-width:100%}</style>
+<title>Model Release Alexander C. Hager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=Mrs+Saint+Delafield&display=swap">
+<style>
+/* Layout: one column like a printed contract sheet; a sticky action bar at the bottom carries the signing step. */
+:root {
+  --paper: #FAFAF8;
+  --sheet: #FFFFFF;
+  --ink: #1B1C1E;
+  --muted: #62656B;
+  --rule: #E3E3DF;
+  --sig: #1E3A63;          /* signature ink */
+  --sig-soft: #E8EEF6;
+  --ok: #1F6B45;
+  --ok-soft: #E4F2EA;
+  --f-text: "Newsreader", Georgia, "Times New Roman", serif;
+  --f-ui: "IBM Plex Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --f-sig: "Mrs Saint Delafield", "Brush Script MT", cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141517; --sheet: #1C1D20; --ink: #ECEBE7; --muted: #A2A4A9; --rule: #2E3034;
+    --sig: #9DBBE6; --sig-soft: #22303F; --ok: #7FCFA0; --ok-soft: #1C2F25; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #141517; --sheet: #1C1D20; --ink: #ECEBE7; --muted: #A2A4A9; --rule: #2E3034;
+  --sig: #9DBBE6; --sig-soft: #22303F; --ok: #7FCFA0; --ok-soft: #1C2F25; color-scheme: dark;
+}
+[hidden] { display: none !important; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-ui); margin: 0; }
+.wrap { max-width: 720px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 140px; }
+.sheet { background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: clamp(22px, 5vw, 56px); }
+.eyebrow { font: 600 11px/1.4 var(--f-ui); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+h1 { font: 500 clamp(34px, 6vw, 46px)/1.05 var(--f-text); margin: 8px 0 26px; text-wrap: balance; letter-spacing: -.01em; }
+.parties { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: start; padding: 18px 0; border-block: 1px solid var(--rule); margin-bottom: 26px; }
+.party { min-width: 0; }
+.party b { display: block; font: 500 17px/1.35 var(--f-text); }
+.party span { display: block; font-size: 13px; color: var(--muted); line-height: 1.5; }
+.party .role { margin-top: 6px; font-style: italic; font-family: var(--f-text); font-size: 14px; }
+.and { font: italic 15px var(--f-text); color: var(--muted); padding-top: 2px; }
+.empty-name { color: var(--muted); font-style: italic; font-weight: 400 !important; }
+.lead { font: 400 18px/1.6 var(--f-text); margin: 0 0 22px; }
+.clause { display: grid; grid-template-columns: 34px 1fr; gap: 6px; margin: 0 0 18px; }
+.clause .no { font: 600 12px/2 var(--f-ui); color: var(--muted); letter-spacing: .04em; }
+.clause p, .clause li { font: 400 17px/1.62 var(--f-text); margin: 0; hyphens: auto; }
+.clause ul { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 8px; }
+.blank { display: inline-block; min-width: 7.5em; border-bottom: 1px solid var(--ink); text-align: center; font-weight: 500; }
+.blank.filled { border-bottom-color: var(--sig); color: var(--sig); }
+.sigs { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--rule); }
+.sigbox { min-width: 0; }
+.sigline { height: 74px; border-bottom: 1px solid var(--ink); display: flex; align-items: flex-end; padding-bottom: 2px; overflow: hidden; }
+.sigline .script { font: 44px/1 var(--f-sig); color: var(--sig); white-space: nowrap; }
+.sigline .pending { font: italic 15px var(--f-text); color: var(--muted); padding-bottom: 8px; }
+.siglabel { font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.45; }
+.stamp { margin-top: 8px; font: 500 12px/1.45 var(--f-ui); color: var(--sig); background: var(--sig-soft); border-radius: 3px; padding: 6px 8px; font-variant-numeric: tabular-nums; }
+.foot { margin-top: 36px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; font-size: 12.5px; color: var(--muted); }
+#end { height: 1px; }
+
+/* action bar */
+.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: color-mix(in srgb, var(--sheet) 92%, transparent); backdrop-filter: blur(10px); border-top: 1px solid var(--rule); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.bar-in { max-width: 720px; margin: 0 auto; padding: 12px max(16px, env(safe-area-inset-right, 0px)) 12px max(16px, env(safe-area-inset-left, 0px)); display: flex; align-items: center; gap: 14px; }
+.bar-msg { flex: 1; min-width: 0; font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+.progress { height: 3px; background: var(--rule); border-radius: 2px; margin-top: 7px; overflow: hidden; }
+.progress i { display: block; height: 100%; width: 0; background: var(--sig); transition: width .2s; }
+.btn { font: 600 15px var(--f-ui); border: 0; border-radius: 6px; padding: 12px 18px; cursor: pointer; background: var(--sig); color: var(--sheet); white-space: nowrap; }
+.btn:disabled { background: var(--rule); color: var(--muted); cursor: not-allowed; }
+.btn:focus-visible, input:focus-visible, .ghost:focus-visible { outline: 2px solid var(--sig); outline-offset: 2px; }
+.ghost { font: 500 14px var(--f-ui); background: transparent; color: var(--ink); border: 1px solid var(--rule); border-radius: 6px; padding: 11px 16px; cursor: pointer; }
+
+/* modal */
+.scrim { position: fixed; inset: 0; z-index: 40; background: rgba(10,12,16,.48); display: grid; place-items: center; padding: 16px; }
+.modal { background: var(--sheet); color: var(--ink); width: 100%; max-width: 440px; border-radius: 8px; padding: 26px 24px 22px; box-shadow: 0 20px 60px rgba(0,0,0,.25); max-height: calc(100% - 32px); overflow: auto; }
+.modal h2 { font: 500 26px/1.15 var(--f-text); margin: 0 0 6px; }
+.modal p.sub { margin: 0 0 18px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.field { display: grid; gap: 6px; margin-bottom: 14px; }
+.field label { font-size: 13px; font-weight: 500; }
+.field input { font: 400 16px var(--f-ui); padding: 11px 12px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); color: var(--ink); width: 100%; box-sizing: border-box; }
+.preview { height: 64px; border-bottom: 1px solid var(--ink); display: flex; align-items: flex-end; margin: 4px 0 16px; overflow: hidden; }
+.preview span { font: 40px/1 var(--f-sig); color: var(--sig); white-space: nowrap; }
+.check { display: grid; grid-template-columns: 20px 1fr; gap: 10px; font-size: 13.5px; line-height: 1.45; margin-bottom: 18px; align-items: start; }
+.check input { width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--sig); }
+.err { color: #B3261E; font-size: 13px; min-height: 18px; margin: -6px 0 8px; }
+.row { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+
+/* done panel */
+.done { margin-top: 22px; background: var(--ok-soft); border: 1px solid color-mix(in srgb, var(--ok) 35%, transparent); border-radius: 6px; padding: 20px; }
+.done h3 { margin: 0 0 6px; font: 500 21px/1.2 var(--f-text); color: var(--ok); }
+.done p { margin: 0 0 14px; font-size: 14px; line-height: 1.55; }
+.done .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.done a.btn { text-decoration: none; display: inline-block; }
+.done .addr { font: 500 14px var(--f-ui); user-select: all; }
+.done pre { white-space: pre-wrap; word-break: break-word; font: 12.5px/1.5 ui-monospace, Menlo, Consolas, monospace; background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 12px; margin: 0; max-height: 220px; overflow: auto; }
+.copied { font-size: 13px; color: var(--ok); margin-left: 6px; }
+
+@media (max-width: 560px) {
+  .parties { grid-template-columns: 1fr; }
+  .and { padding: 0; }
+  .sigs { grid-template-columns: 1fr; }
+  .clause { grid-template-columns: 28px 1fr; }
+  .clause p, .clause li { font-size: 16.5px; }
+  .bar-in { flex-wrap: wrap; }
+  .bar .btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .progress i { transition: none; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <article class="sheet" id="doc">
+    <div class="eyebrow">Vereinbarung über die Nutzung von Fotografien</div>
+    <h1>Model Release</h1>
+
+    <div class="parties">
+      <div class="party">
+        <b>Alexander Christian Hager</b>
+        <span>Mühlweg 68, AT-3100 St. Pölten</span>
+        <span class="role">im Folgenden „Fotograf“ genannt</span>
+      </div>
+      <div class="and">und</div>
+      <div class="party">
+        <b id="modelName" class="empty-name">Name wird beim Unterschreiben eingetragen</b>
+        <span class="role">im Folgenden „Model“ genannt</span>
+      </div>
+    </div>
+
+    <p class="lead">wird folgende unwiderrufliche Vereinbarung über die Nutzung von Fotografien getroffen:</p>
+
+    <div class="clause"><div class="no">#1</div><div>
+      <p>Die Parteien vereinbaren, dass sämtliche Rechte, insbesondere die Rechte am eigenen Bild des Models, für jegliche Nutzung (insbesondere das Recht, die Bilder zu vervielfältigen, zu verbreiten, auszustellen und öffentlich und/oder nichtöffentlich wiederzugeben) an den am <span class="blank filled" id="shootDate">1. September 2026</span> durch den Fotograf von dem Model angefertigten Fotos und Videos unwiderruflich, sowie zeitlich und örtlich unbeschränkt – auch zum Zweck der Eigenwerbung – dem Fotografen zustehen und der Fotograf diese Rechte auch auf Dritte übertragen kann. Für die Nutzung wird insoweit keine inhaltliche, zeitliche oder räumliche Beschränkung vereinbart. Der Nutzungsumfang umfasst daher alle bekannten und unbekannten Verwendungs- und Nutzungsarten, insbesondere:</p>
+      <ul>
+        <li>die Nutzung in Printmedien (Tageszeitungen, Zeitschriften), im Fernsehen über alle Verbreitungswege (z.&nbsp;B. über Antenne, Kabel, Satellit, IP TV, Handy TV, sowie andere Mobilplattformen), im Internet (Internetseiten, Bilddatenbanken, Content Managementsysteme, in Blogs und/oder Foren, Zeitschriften im PDF und anderen Formaten etc.), im Intranet, in digitalen Newslettern, auf CD, DVD, Blu-ray Disks und sonstigen Speichermedien,</li>
+        <li>die Nutzung zum Zwecke der Berichterstattung oder Unterhaltung, der Werbung für Produkte, für Dienstleistungen oder Ideen, politische oder sonstige Meinungen und Ansichten sowie die pädagogische Nutzung. Nicht gestattet ist die Veröffentlichung des Bildmaterials in pornographischen Medien.</li>
+      </ul>
+    </div></div>
+
+    <div class="clause"><div class="no">#2</div><p>Der Name des Models kann vom Fotografen oder von Dritten nach freiem Ermessen erwähnt oder auch weggelassen werden.</p></div>
+    <div class="clause"><div class="no">#3</div><p>Ein Anspruch auf eine Nutzung im oben genannten Sinne wird durch diese Vereinbarung nicht begründet. Das Model hat im Falle einer Nichtnutzung keinerlei Rückruf oder sonstiges Widerrufsrecht. Auskunftsrechte über den Umfang der erfolgten Nutzung stehen dem Model nicht zu.</p></div>
+    <div class="clause"><div class="no">#4</div><p>Das Model ist einverstanden, dass das Aufnahmematerial retuschiert und/oder mit anderen Bildern, Text, Grafiken, Film, Audio und audiovisuellen Medien kombiniert, zugeschnitten und verändert wird. Das Model stimmt einer Nutzung des Fotos und Videos in satirischen, künstlerischen und vergleichbaren Gestaltungen, auch unter Verfremdung der Originalaufnahme, zu.</p></div>
+    <div class="clause"><div class="no">#5</div><p>Die Fotoaufnahmen erfolgen unentgeltlich. Das Model erhält für die Durchführung der Aufnahmen sowie für die Einräumung der oben genannten Nutzungsrechte kein Honorar. Sämtliche wechselseitigen Ansprüche aus dieser Vereinbarung sind damit vollständig abgegolten. Das Model ist allein für die Abführung aller in Frage kommender Sozialversicherungsbeiträge und sonstiger steuerlicher Abgaben verantwortlich.</p></div>
+    <div class="clause"><div class="no">#6</div><p>Der Fotograf hat die Volljährigkeit des Models durch Einsichtnahme in ein amtliches Ausweisdokument kontrolliert und bestätigt. Eine Kopie des Ausweisdokuments wird vom Fotografen nicht angefertigt und nicht aufbewahrt.</p></div>
+    <div class="clause"><div class="no">#7</div><p>Durch diese Vereinbarung wird kein Arbeitsverhältnis begründet.</p></div>
+    <div class="clause"><div class="no">#8</div><p>Mündliche Nebenabreden sind nicht getroffen. Änderungen dieses Vertrags bedürfen der Schriftform. Dies gilt auch für eine Aufhebung dieses Schriftformerfordernisses.</p></div>
+    <div class="clause"><div class="no">#9</div><p>Die Nichtigkeit oder Unwirksamkeit einzelner Bestimmungen dieser Vereinbarung berührt die Gültigkeit der übrigen Bestimmungen nicht.</p></div>
+
+    <div class="sigs">
+      <div class="sigbox">
+        <div class="sigline"><span class="script">Alexander C. Hager</span></div>
+        <div class="siglabel">Unterschrift Alexander C. Hager (Fotograf)</div>
+      </div>
+      <div class="sigbox">
+        <div class="sigline" id="modelSigLine"><span class="pending">Noch nicht unterschrieben</span></div>
+        <div class="siglabel">Unterschrift Model</div>
+        <div class="stamp" id="stamp" hidden></div>
+      </div>
+    </div>
+
+    <section class="done" id="done" hidden aria-live="polite">
+      <h3>Unterschrieben</h3>
+      <p id="sendStatus">Deine Unterschrift wird an Alexander C. Hager übermittelt …</p>
+      <div id="fallback" hidden>
+      <p>Die automatische Übermittlung hat nicht geklappt. Bitte schick Alex die Bestätigung per WhatsApp – der Text ist schon vorbereitet.</p>
+      <div class="actions">
+        <a class="btn" id="waLink" href="https://wa.me/436642170666" target="_blank" rel="noopener">Per WhatsApp senden</a>
+        <button class="ghost" id="copyBtn" type="button">Text kopieren</button><span class="copied" id="copied" hidden>Kopiert</span>
+      </div>
+      <p style="margin-bottom:8px">Oder per E-Mail an <span class="addr">hello@achager.com</span> – Text kopieren und einfügen.</p>
+      <pre id="confirmText"></pre>
+      </div>
+    </section>
+
+    <div class="foot">
+      <span>Alexander C. Hager</span>
+      <span>+43 664 217 0 666 · hello@achager.com</span>
+    </div>
+    <div id="end"></div>
+  </article>
+</div>
+
+<div class="bar" id="bar">
+  <div class="bar-in">
+    <div class="bar-msg" id="barMsg">Bitte lies den Vertrag bis zum Ende.
+      <div class="progress"><i id="prog"></i></div>
+    </div>
+    <button class="btn" id="signBtn" type="button" disabled>Unterschreiben</button>
+  </div>
+</div>
+
+<div class="scrim" id="scrim" hidden>
+  <form class="modal" id="signForm" role="dialog" aria-modal="true" aria-labelledby="mTitle" novalidate>
+    <h2 id="mTitle">Unterschreiben</h2>
+    <p class="sub">Trag deinen vollen Namen ein. Er wird als Unterschrift gesetzt, mit dem heutigen Datum und der Uhrzeit. Aufnahmen vom 1. September 2026.</p>
+    <div class="field">
+      <label for="fName">Vor- und Nachname</label>
+      <input id="fName" name="name" autocomplete="name" required maxlength="80" placeholder="z. B. Lena Gruber">
+    </div>
+    <div class="preview" aria-hidden="true"><span id="pvSig"></span></div>
+    <label class="check"><input type="checkbox" id="fAgree"><span>Ich habe die Vereinbarung gelesen, bin volljährig und unterschreibe sie.</span></label>
+    <div class="err" id="err"></div>
+    <div class="row">
+      <button class="ghost" type="button" id="cancelBtn">Abbrechen</button>
+      <button class="btn" type="submit" id="confirmBtn">Jetzt unterschreiben</button>
+    </div>
+  </form>
+</div>
+
+<script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const KEY = "achager-model-release-2026-11-" + "0109";
+  const DOC_VERSION = "Model-Release_DE_Nov2026";
+  const SHOOT = "1. September 2026";
+  const API = "https://shjvoxasjbnswkumqjjy.supabase.co/rest/v1/model_releases";
+  const APIKEY = "sb_publishable_mDmSXsFyhSZUcG65NhTFrg_rxAhKZv-";
+  let readToEnd = false, signed = null;
+
+  // reading progress + unlock at the end
+  function onScroll() {
+    const docEl = document.documentElement;
+    const max = docEl.scrollHeight - window.innerHeight;
+    const p = max <= 0 ? 1 : Math.min(1, window.scrollY / max);
+    $("prog").style.width = Math.round(p * 100) + "%";
+    if (!readToEnd && p > 0.97) unlock();
+  }
+  function unlock() {
+    readToEnd = true;
+    if (signed) return;
+    $("signBtn").disabled = false;
+    $("barMsg").firstChild.textContent = "Fertig gelesen. Du kannst jetzt unterschreiben.";
+  }
+  new IntersectionObserver((es) => { if (es.some(e => e.isIntersecting)) unlock(); }).observe($("end"));
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  // modal
+  function openModal() {
+    $("scrim").hidden = false; $("err").textContent = "";
+    setTimeout(() => $("fName").focus(), 30);
+  }
+  function closeModal() { $("scrim").hidden = true; $("signBtn").focus(); }
+  $("signBtn").addEventListener("click", openModal);
+  $("cancelBtn").addEventListener("click", closeModal);
+  $("scrim").addEventListener("click", (e) => { if (e.target === $("scrim")) closeModal(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("scrim").hidden) closeModal(); });
+  $("fName").addEventListener("input", () => { $("pvSig").textContent = $("fName").value.trim(); });
+
+  const fmtDate = (d) => d.toLocaleDateString("de-AT", { day: "2-digit", month: "2-digit", year: "numeric" });
+  const fmtTime = (d) => d.toLocaleTimeString("de-AT", { hour: "2-digit", minute: "2-digit" });
+  function isoToDe(iso) { const [y, m, d] = iso.split("-"); return d + "." + m + "." + y; }
+
+  async function refCode(payload) {
+    try {
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(payload));
+      return Array.from(new Uint8Array(buf)).slice(0, 5).map(b => b.toString(16).padStart(2, "0")).join("").toUpperCase();
+    } catch (e) { return Math.random().toString(16).slice(2, 12).toUpperCase(); }
+  }
+
+  $("signForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = $("fName").value.trim().replace(/\s+/g, " ");
+    const shoot = SHOOT;
+    if (name.length < 3 || !name.includes(" ")) { $("err").textContent = "Bitte Vor- und Nachnamen eintragen."; $("fName").focus(); return; }
+    if (!$("fAgree").checked) { $("err").textContent = "Bitte bestätige, dass du gelesen hast und volljährig bist."; return; }
+    const now = new Date();
+    const ref = await refCode([DOC_VERSION, name, shoot, now.toISOString()].join("|"));
+    signed = { name, shoot, at: now.toISOString(), ref };
+    try { localStorage.setItem(KEY, JSON.stringify(signed)); } catch (_) {}
+    closeModal(); render(); send();
+    $("done").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  });
+
+  function confirmationText(s) {
+    const at = new Date(s.at);
+    return [
+      "Model Release – digital unterschrieben",
+      "",
+      "Fotograf: Alexander Christian Hager, Mühlweg 68, AT-3100 St. Pölten",
+      "Model: " + s.name,
+      "Aufnahmen vom: " + SHOOT,
+      "Unterschrieben am: " + fmtDate(at) + ", " + fmtTime(at) + " Uhr",
+      "Dokument: " + DOC_VERSION + " (§1–§9)",
+      "Referenz: " + s.ref,
+      "",
+      "Ich, " + s.name + ", habe die Vereinbarung vollständig gelesen, bin volljährig und stimme ihr mit dieser Unterschrift zu."
+    ].join("\n");
+  }
+
+  function render() {
+    if (!signed) return;
+    const at = new Date(signed.at);
+    $("modelName").textContent = signed.name; $("modelName").classList.remove("empty-name");
+    const line = $("modelSigLine"); line.textContent = "";
+    const sp = document.createElement("span"); sp.className = "script"; sp.textContent = signed.name; line.appendChild(sp);
+    $("stamp").hidden = false;
+    $("stamp").textContent = "Digital unterzeichnet am " + fmtDate(at) + " um " + fmtTime(at) + " Uhr · Ref. " + signed.ref;
+    const txt = confirmationText(signed);
+    $("confirmText").textContent = txt;
+    $("waLink").href = "https://wa.me/436642170666?text=" + encodeURIComponent(txt);
+    $("done").hidden = false;
+    $("signBtn").disabled = true; $("signBtn").textContent = "Unterschrieben";
+    $("barMsg").firstChild.textContent = "Unterschrieben.";
+  }
+
+  async function send() {
+    if (!signed) return;
+    const ok = (msg) => { $("sendStatus").textContent = msg; $("fallback").hidden = true; };
+    if (signed.sent) { ok("Übermittelt – Alexander C. Hager hat deine Unterschrift erhalten. Danke!"); return; }
+    $("sendStatus").textContent = "Deine Unterschrift wird an Alexander C. Hager übermittelt …";
+    try {
+      const r = await fetch(API, { method: "POST", headers: { "apikey": APIKEY, "Authorization": "Bearer " + APIKEY, "Content-Type": "application/json", "Prefer": "return=minimal" },
+        body: JSON.stringify({ name: signed.name, shoot: SHOOT, doc_version: DOC_VERSION, ref: signed.ref, signed_at: signed.at, user_agent: navigator.userAgent.slice(0, 300) }) });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      signed.sent = true; try { localStorage.setItem(KEY, JSON.stringify(signed)); } catch (_) {}
+      ok("Übermittelt – Alexander C. Hager hat deine Unterschrift erhalten. Danke!");
+    } catch (e) {
+      $("sendStatus").textContent = "Unterschrieben, aber noch nicht übermittelt.";
+      $("fallback").hidden = false;
+    }
+  }
+
+  $("copyBtn").addEventListener("click", async () => {
+    const txt = $("confirmText").textContent;
+    try { await navigator.clipboard.writeText(txt); $("copied").hidden = false; setTimeout(() => $("copied").hidden = true, 2200); }
+    catch (_) { const r = document.createRange(); r.selectNodeContents($("confirmText")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  });
+
+  // restore a signature made earlier in this browser
+  try { const s = JSON.parse(localStorage.getItem(KEY) || "null"); if (s && s.name && s.ref) { signed = s; readToEnd = true; render(); send(); } } catch (_) {}
+})();
+</script>
+
+</body>
+</html>

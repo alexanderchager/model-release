@@ -165,14 +165,17 @@ h1 { font: 500 clamp(34px, 6vw, 46px)/1.05 var(--f-text); margin: 8px 0 26px; te
     </div>
 
     <section class="done" id="done" hidden aria-live="polite">
-      <h3>Unterschrieben – jetzt an Alex schicken</h3>
-      <p>Damit die Unterschrift bei Alexander C. Hager ankommt, schick ihm die Bestätigung. Am schnellsten per WhatsApp: Der Text ist schon vorbereitet, du musst nur noch auf Senden tippen.</p>
+      <h3>Unterschrieben</h3>
+      <p id="sendStatus">Deine Unterschrift wird an Alexander C. Hager übermittelt …</p>
+      <div id="fallback" hidden>
+      <p>Die automatische Übermittlung hat nicht geklappt. Bitte schick Alex die Bestätigung per WhatsApp – der Text ist schon vorbereitet.</p>
       <div class="actions">
         <a class="btn" id="waLink" href="https://wa.me/436642170666" target="_blank" rel="noopener">Per WhatsApp senden</a>
         <button class="ghost" id="copyBtn" type="button">Text kopieren</button><span class="copied" id="copied" hidden>Kopiert</span>
       </div>
       <p style="margin-bottom:8px">Oder per E-Mail an <span class="addr">hello@achager.com</span> – Text kopieren und einfügen.</p>
       <pre id="confirmText"></pre>
+      </div>
     </section>
 
     <div class="foot">
@@ -213,9 +216,11 @@ h1 { font: 500 clamp(34px, 6vw, 46px)/1.05 var(--f-text); margin: 8px 0 26px; te
 <script>
 (function () {
   const $ = (id) => document.getElementById(id);
-  const KEY = "achager-model-release-2026-11";
+  const KEY = "achager-model-release-2026-11-" + "0409";
   const DOC_VERSION = "Model-Release_DE_Nov2026";
   const SHOOT = "4. + 5. September 2026";
+  const API = "https://shjvoxasjbnswkumqjjy.supabase.co/rest/v1/model_releases";
+  const APIKEY = "sb_publishable_mDmSXsFyhSZUcG65NhTFrg_rxAhKZv-";
   let readToEnd = false, signed = null;
 
   // reading progress + unlock at the end
@@ -269,7 +274,7 @@ h1 { font: 500 clamp(34px, 6vw, 46px)/1.05 var(--f-text); margin: 8px 0 26px; te
     const ref = await refCode([DOC_VERSION, name, shoot, now.toISOString()].join("|"));
     signed = { name, shoot, at: now.toISOString(), ref };
     try { localStorage.setItem(KEY, JSON.stringify(signed)); } catch (_) {}
-    closeModal(); render();
+    closeModal(); render(); send();
     $("done").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
   });
 
@@ -302,7 +307,24 @@ h1 { font: 500 clamp(34px, 6vw, 46px)/1.05 var(--f-text); margin: 8px 0 26px; te
     $("waLink").href = "https://wa.me/436642170666?text=" + encodeURIComponent(txt);
     $("done").hidden = false;
     $("signBtn").disabled = true; $("signBtn").textContent = "Unterschrieben";
-    $("barMsg").firstChild.textContent = "Unterschrieben. Schick die Bestätigung jetzt an Alex.";
+    $("barMsg").firstChild.textContent = "Unterschrieben.";
+  }
+
+  async function send() {
+    if (!signed) return;
+    const ok = (msg) => { $("sendStatus").textContent = msg; $("fallback").hidden = true; };
+    if (signed.sent) { ok("Übermittelt – Alexander C. Hager hat deine Unterschrift erhalten. Danke!"); return; }
+    $("sendStatus").textContent = "Deine Unterschrift wird an Alexander C. Hager übermittelt …";
+    try {
+      const r = await fetch(API, { method: "POST", headers: { "apikey": APIKEY, "Authorization": "Bearer " + APIKEY, "Content-Type": "application/json", "Prefer": "return=minimal" },
+        body: JSON.stringify({ name: signed.name, shoot: SHOOT, doc_version: DOC_VERSION, ref: signed.ref, signed_at: signed.at, user_agent: navigator.userAgent.slice(0, 300) }) });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      signed.sent = true; try { localStorage.setItem(KEY, JSON.stringify(signed)); } catch (_) {}
+      ok("Übermittelt – Alexander C. Hager hat deine Unterschrift erhalten. Danke!");
+    } catch (e) {
+      $("sendStatus").textContent = "Unterschrieben, aber noch nicht übermittelt.";
+      $("fallback").hidden = false;
+    }
   }
 
   $("copyBtn").addEventListener("click", async () => {
@@ -312,7 +334,7 @@ h1 { font: 500 clamp(34px, 6vw, 46px)/1.05 var(--f-text); margin: 8px 0 26px; te
   });
 
   // restore a signature made earlier in this browser
-  try { const s = JSON.parse(localStorage.getItem(KEY) || "null"); if (s && s.name && s.ref) { signed = s; readToEnd = true; render(); } } catch (_) {}
+  try { const s = JSON.parse(localStorage.getItem(KEY) || "null"); if (s && s.name && s.ref) { signed = s; readToEnd = true; render(); send(); } } catch (_) {}
 })();
 </script>
 
